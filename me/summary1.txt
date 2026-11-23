@@ -1,0 +1,15 @@
+REPLACE THIS FILE WITH YOUR OWN SUMMARY BEFORE DEPLOYING.
+
+The agent treats everything here as fact and speaks it in the first person, so
+write it as yourself, in plain prose. A few short paragraphs is plenty - this
+sits alongside your LinkedIn PDF, so cover the things a profile does not say.
+
+Worth including:
+  - What you actually do day to day, and who you do it for.
+  - The two or three projects you would want a recruiter to ask about.
+  - What kind of work you are looking for right now, and what you are not.
+  - How you prefer people reach you.
+
+If this file is missing entirely, the agent falls back to a single line:
+"I am Rohit Jindal, a AI educator and AI engineer." - which is why you want to
+replace this.

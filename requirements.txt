@@ -1,0 +1,11 @@
+# Gradio itself is NOT listed here on purpose - the Space installs the version
+# from sdk_version in README.md. Listing it in both places causes conflicts.
+# If CHAT_UI=fastapi (see .env), also install: pip install -r requirements-docker.txt
+# Pydantic + openai-agents use `float | None` annotations; on Python < 3.10 need:
+eval_type_backport>=0.2.0
+openai-agents>=0.3.3
+openai>=1.109.1
+pypdf>=6.1.1
+requests>=2.32.3
+python-dotenv>=1.1.1
+google-auth>=2.0.0

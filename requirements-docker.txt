@@ -1,0 +1,3 @@
+# Extra deps for CHAT_UI=fastapi / Hugging Face Docker Space (no Gradio).
+fastapi>=0.115.0
+uvicorn[standard]>=0.32.0
