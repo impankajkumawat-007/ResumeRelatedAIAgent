@@ -1458,6 +1458,16 @@ def _launch_gradio() -> None:
     if "type" in inspect.signature(gr.ChatInterface.__init__).parameters:
         chat_kwargs["type"] = "messages"
 
+    # Bind every interface. Gradio's default is 127.0.0.1, which Fly's proxy
+    # (and any other process outside this container) cannot connect to.
+    server_name = os.getenv("GRADIO_SERVER_NAME") or os.getenv("HOST") or "0.0.0.0"
+    launch_kwargs = {"server_name": server_name}
+    if os.getenv("PORT"):
+        launch_kwargs["server_port"] = int(os.environ["PORT"])
+    elif os.getenv("GRADIO_SERVER_PORT"):
+        launch_kwargs["server_port"] = int(os.environ["GRADIO_SERVER_PORT"])
+
+    print(f"Starting Gradio on http://{server_name}:{launch_kwargs.get('server_port', 7860)}", flush=True)
     gr.ChatInterface(
         chat,
         **chat_kwargs,
@@ -1468,7 +1478,7 @@ def _launch_gradio() -> None:
             "Can we schedule a call this week?",
             "Where can I see your code?",
         ],
-    ).launch()
+    ).launch(**launch_kwargs)
 
 
 if __name__ == "__main__":
@@ -1478,7 +1488,10 @@ if __name__ == "__main__":
 
         from fastapi_ui import app as fastapi_app
 
-        port = int(os.getenv("PORT", "7860"))
-        uvicorn.run(fastapi_app, host="0.0.0.0", port=port)
+        # Fly's proxy dials 0.0.0.0:8080. PORT overrides this; never bind loopback.
+        host = os.getenv("HOST", "0.0.0.0")
+        port = int(os.getenv("PORT", "8080"))
+        print(f"Starting FastAPI on http://{host}:{port}", flush=True)
+        uvicorn.run(fastapi_app, host=host, port=port)
     else:
         _launch_gradio()

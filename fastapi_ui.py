@@ -3,7 +3,7 @@ Lightweight chat UI (HTML + FastAPI) for Hugging Face Docker Spaces — no Gradi
 
 Run locally:
   CHAT_UI=fastapi uv run python app.py
-  # or: uvicorn fastapi_ui:app --host 0.0.0.0 --port 7860
+  # or: uvicorn fastapi_ui:app --host 0.0.0.0 --port 8080
 """
 
 from __future__ import annotations
